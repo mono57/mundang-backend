@@ -15,11 +15,21 @@ class QuoteTag(TimestampModel):
         verbose_name_plural = _('Étiquetes Proverbes & Citations')
 
     name = models.CharField(max_length=50, verbose_name=_('Nom'))
-    slug = models.SlugField()
+    slug = models.SlugField(blank=True)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         super().save(*args, **kwargs)
+
+    @classmethod
+    def admin_list_display(cls):
+        return ('name', 'slug')
+
+    @classmethod
+    def admin_populated_fields(cls):
+        return {
+            'slug': 'name'
+        }
 
 class Quote(TimestampModel):
     class Meta:
