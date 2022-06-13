@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
-import django_heroku
+# import django_heroku
 
 from pathlib import Path
 
@@ -32,7 +32,8 @@ ALLOWED_HOSTS = ['*']
 
 # Application definition
 PROJECT_APPS = [
-    'quotes.apps.QuotesConfig'
+    'quotes.apps.QuotesConfig',
+    'blog.apps.BlogConfig',
 ]
 
 THIRP_PARTIES = [
@@ -64,7 +65,7 @@ ROOT_URLCONF = 'mundang.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -85,6 +86,10 @@ WSGI_APPLICATION = 'mundang.wsgi.application'
 
 DATABASES = {
     "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": os.environ.get("DATABASE_NAME", 'db.sqlite3'),
+    },
+    "postgres": {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": os.environ.get("DATABASE_NAME"),
         "USER": os.environ.get("DATABASE_USER"),
@@ -142,4 +147,4 @@ STATICFILES_DIRS = (
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-django_heroku.settings(locals())
+# django_heroku.settings(locals())

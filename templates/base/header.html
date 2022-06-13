@@ -1,0 +1,54 @@
+{% load i18n %}
+
+{% url 'index' as home_url %}
+
+<header class="header_wrap dark_skin fixed-top">
+	<div class="top-header bg_dark light_skin">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-7">
+                    <ul class="header_list text-center text-md-left">
+                    	<li><i class="far fa-clock"></i> <span id="current_time"></span></li>
+                        <li><a href="#" data-toggle="modal" data-target="#Login">{% trans "Connexion" %}</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-5">
+                	<div class="d-flex align-items-center justify-content-center justify-content-md-end">
+                        <div class="lng_dropdown mr-2">
+                            <select name="countries" class="custome_select">
+                                <option value='en' data-title="English">English</option>
+                                <option value='fn' data-title="France">France</option>
+                            </select>
+                        </div>
+                        <ul class="social_icons social_white">
+                            <li><a href="#"><i class="ion-social-facebook"></i></a></li>
+                            <li><a href="#"><i class="ion-social-twitter"></i></a></li>
+                            <li><a href="#"><i class="ion-social-linkedin"></i></a></li>
+                            <li><a href="#"><i class="ion-social-youtube"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+	<div class="container">
+    	<nav class="navbar navbar-expand-lg">
+            <a class="navbar-brand" href="index.html">
+                <img class="logo_light" src="assets/images/logo_white.png" alt="logo" />
+                <img class="logo_dark" src="assets/images/logo_dark.png" alt="logo" />
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="ion-android-menu"></span> </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+                <ul class="navbar-nav">
+                    <li><a class="nav-link nav_item {% if request.path == home_url %}active{% endif %}" href="{{home_url}}">{% trans "Acceuil" %}</a></li>
+                    <li><a class="nav-link nav_item" href="">{% trans "Blog" %}</a></li>
+                    <li><a class="nav-link nav_item" href="">{% trans "Dictionnaire" %}</a></li>
+                    <li><a class="nav-link nav_item" href="">{% trans "Contribution" %}</a></li>
+                    <li><a class="nav-link nav_item" href="">{% trans "A propos" %}</a></li>
+                    <li><a class="nav-link nav_item" href="">{% trans "Contact" %}</a></li>
+                </ul>
+            </div>
+
+		</nav>
+	</div>
+</header>
