@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+
+{% block content %}
+<div class="breadcrumb_section bg_gray py-4">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <div class="page-title">
+                    <h4 class="lead">Mundang</h4>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <ol class="breadcrumb justify-content-md-end">
+                    <li class="breadcrumb-item"><a href="{% url 'home' %}">{% trans "Acceuil" %}</a></li>
+                    {% block breadcrumb %}
+                    {% endblock breadcrumb %}
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

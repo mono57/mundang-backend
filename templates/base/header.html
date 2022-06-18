@@ -1,6 +1,7 @@
 {% load i18n %}
 
-{% url 'index' as home_url %}
+{% url 'home' as home_url %}
+{% url 'blog' as blog_url %}
 
 <header class="header_wrap dark_skin fixed-top">
 	<div class="top-header bg_dark light_skin">
@@ -41,7 +42,7 @@
             <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                 <ul class="navbar-nav">
                     <li><a class="nav-link nav_item {% if request.path == home_url %}active{% endif %}" href="{{home_url}}">{% trans "Acceuil" %}</a></li>
-                    <li><a class="nav-link nav_item" href="">{% trans "Blog" %}</a></li>
+                    <li><a class="nav-link nav_item {% if request.path == blog_url %}active{% endif %}" href="{{blog_url}}">{% trans "Blog" %}</a></li>
                     <li><a class="nav-link nav_item" href="">{% trans "Dictionnaire" %}</a></li>
                     <li><a class="nav-link nav_item" href="">{% trans "Contribution" %}</a></li>
                     <li><a class="nav-link nav_item" href="">{% trans "A propos" %}</a></li>

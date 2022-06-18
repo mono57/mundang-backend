@@ -1,0 +1,97 @@
+{% extends 'base_site.html' %}
+
+{% load i18n %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item active">{% trans "Articles" %}</li>
+
+{% endblock breadcrumb %}
+
+
+{% block content %}
+{{ block.super }}
+
+<div class="section">
+	<div class="container">
+    	<div class="row">
+    		<div class="col-lg-8">
+            	<div class="blog_list list_post">
+                    {% for post in posts %}
+                        {% include 'blog/includes/post_list_card.html' with post=post %}
+                    {% endfor %}
+                </div>
+                <div class="py-3 py-md-4 mt-2 mt-sm-0 mt-lg-5 border-top border-bottom">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1"><i class="linearicons-arrow-left"></i></a></li>
+                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item"><a class="page-link" href="#"><i class="linearicons-arrow-right"></i></a></li>
+                    </ul>
+                </div>
+        	</div>
+            <div class="col-lg-4">
+            	<div class="sidebar mt-4 pt-2 mt-lg-0 pt-lg-0">
+                    <div class="widget">
+                    	<h5 class="widget_title">Categories</h5>
+                        <ul class="widget_categories">
+                        	<li><a href="#"><div class="cat_bg background_bg overlay_bg_50" data-img-src="assets/images/cat_img1.jpg"><div class="post_category"><span class="cat_title">Business</span><span class="cat_num">2 Post</span></div></div></a></li>
+                            <li><a href="#"><div class="cat_bg background_bg overlay_bg_50" data-img-src="assets/images/cat_img2.jpg"><div class="post_category"><span class="cat_title">Lifestyle</span><span class="cat_num">5 Post</span></div></div></a></li>
+                            <li><a href="#"><div class="cat_bg background_bg overlay_bg_50" data-img-src="assets/images/cat_img3.jpg"><div class="post_category"><span class="cat_title">Travel</span><span class="cat_num">7 Post</span></div></div></a></li>
+                            <li><a href="#"><div class="cat_bg background_bg overlay_bg_50" data-img-src="assets/images/cat_img4.jpg"><div class="post_category"><span class="cat_title">Fashion</span><span class="cat_num">4 Post</span></div></div></a></li>
+                            <li><a href="#"><div class="cat_bg background_bg overlay_bg_50" data-img-src="assets/images/cat_img5.jpg"><div class="post_category"><span class="cat_title">Beauty</span><span class="cat_num">8 Post</span></div></div></a></li>
+                        </ul>
+                    </div>
+                    <div class="widget">
+                    	<h5 class="widget_title">Subscribe Newsletter</h5>
+                        <p>Contrary to popular belief of lorem Ipsm Latin from consectetur industry blandit massa enim varius nunc.</p>
+                        <div class="newsletter_form">
+                            <form>
+                                <input type="text" required="" class="form-control form-control-sm rounded-input" placeholder="Your email address..">
+                                <button type="submit" title="Subscribe" class="btn btn-default btn-radius btn-sm" name="submit" value="Submit">subscribe</button>
+                            </form>
+                        </div>
+                    </div>
+                	<div class="widget">
+                    	<h5 class="widget_title">Social Feed</h5>
+                        <ul class="widget_social social_icons rounded_social">
+                            <li><a href="#" class="sc_facebook"><i class="ion-social-facebook"></i></a></li>
+                            <li><a href="#" class="sc_twitter"><i class="ion-social-twitter"></i></a></li>
+                            <li><a href="#" class="sc_gplus"><i class="ion-social-googleplus"></i></a></li>
+                            <li><a href="#" class="sc_youtube"><i class="ion-social-youtube-outline"></i></a></li>
+                            <li><a href="#" class="sc_instagram"><i class="ion-social-instagram-outline"></i></a></li>
+                            <li><a href="#" class="sc_pinterest"><i class="ion-social-pinterest-outline"></i></a></li>
+                    	</ul>
+                    </div>
+                    <div class="widget">
+                    	<h5 class="widget_title">Letest Posts</h5>
+                        <ul class="recent_post">
+                            <li>
+                                <div class="post_footer">
+                                    <div class="post_img">
+                                        <a href="#"><img class="rounded-circle" src="assets/images/letest_post1.jpg" alt="letest_post1"></a>
+                                    </div>
+                                    <div class="post_content">
+                                        <h6><a href="#">Lorem ipsum dolor sit amet, consectetur</a></h6>
+                                        <p class="small m-0">April 14, 2018</p>
+                                    </div>
+                                </div>
+                            </li>
+
+
+                    	</ul>
+                    </div>
+                    <div class="widget">
+                    	<div class="text-center">
+                            <div class="ads_banner">
+                                <a href="#"><img src="assets/images/ads336X280.jpg" alt=""></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

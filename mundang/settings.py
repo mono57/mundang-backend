@@ -37,7 +37,8 @@ PROJECT_APPS = [
 ]
 
 THIRP_PARTIES = [
-    'debug_toolbar'
+    'debug_toolbar',
+    'taggit'
 ]
 
 INSTALLED_APPS = [
@@ -47,6 +48,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
+
 ] + THIRP_PARTIES + PROJECT_APPS
 
 MIDDLEWARE = [
@@ -122,9 +125,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'fr'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Africa/Douala'
 
 USE_I18N = True
 
@@ -141,6 +144,9 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = "media"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

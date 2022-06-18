@@ -1,0 +1,12 @@
+{% load i18n %}
+
+<div class="widget">
+    <h5 class="widget_title">{% trans "A propos de l'auteur" %}</h5>
+    <div class="about_widget">
+        <div class="about_img">
+            <img src="{{author.profile_image.url}}" alt="{{author.get_full_name}}">
+        </div>
+        <h5>{{author.get_full_name}}</h5>
+        <p>{{author.short_description}}</p>
+    </div>
+</div>
