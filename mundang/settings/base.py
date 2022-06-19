@@ -10,25 +10,17 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
-# import django_heroku
 
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
+ALLOWED_HOSTS = ['127.0.0.1']
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-r=z9egj4nhw7j6&u(0p5h66v$s-sa+%g-0y=i527$lza@hod1+')
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', True)
-
-ALLOWED_HOSTS = ['*']
-
+EMAIL_INVITE_EXPIRE_DAYS = 3
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
 
 # Application definition
 PROJECT_APPS = [
@@ -37,8 +29,9 @@ PROJECT_APPS = [
 ]
 
 THIRP_PARTIES = [
-    'debug_toolbar',
-    'taggit'
+    'taggit',
+    'allauth',
+    'allauth.account',
 ]
 
 INSTALLED_APPS = [
@@ -49,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
+    'django.contrib.sites',
 
 ] + THIRP_PARTIES + PROJECT_APPS
 
@@ -82,26 +76,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'mundang.wsgi.application'
-
-
-# Database
-# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.environ.get("DATABASE_NAME", 'db.sqlite3'),
-    },
-    "postgres": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.environ.get("DATABASE_NAME"),
-        "USER": os.environ.get("DATABASE_USER"),
-        "PASSWORD": os.environ.get("DATABASE_USER_PASSWORD"),
-        "HOST": os.environ.get("DATABASE_HOST", "127.0.0.1"),
-        "PORT": "5432",
-    }
-}
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -153,4 +127,8 @@ MEDIA_ROOT = "media"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# django_heroku.settings(locals())
+# Django Allauth Settings
+SITE_ID = 1
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
