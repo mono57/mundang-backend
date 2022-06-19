@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.http import QueryDict
 
 from blog.models import Post, PostCategory, PostType, UserInvite
 # Register your models here.
@@ -22,10 +23,13 @@ admin.site.register(PostType, PostTypeModelAdmin)
 
 
 class UserInviteModelAdmin(admin.ModelAdmin):
-    list_display = ['email', 'register_link_openned']
-    actions = []
+    list_display = ['email', 'verified']
+    actions = ['send_invite_link']
 
-    def send_invite_link(self, queryset):
-        pass
+    def send_invite_link(self, request, queryset):
+        for q in queryset:
+            q.send_invite_mail(request)
+
+    send_invite_link.short_description = "Envoyer le lien d'invitation"
 
 admin.site.register(UserInvite, UserInviteModelAdmin)

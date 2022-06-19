@@ -1,8 +1,9 @@
 from typing import Any, Dict, Type
+from django.http import HttpResponseNotFound, HttpResponseRedirect
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, View
 
-from blog.models import Post, PostCategory
+from blog.models import Post, PostCategory, UserInvite
 
 class PostListView(ListView):
     paginate_by: int = 10
@@ -32,3 +33,18 @@ class PostDetailView(DetailView):
         ctx['related_posts'] = object.get_related_posts()
         ctx['lastest_posts'] = Post.objects.get_lastest_posts().exclude(id=object.pk).take(3)
         return ctx
+
+
+class VerifyInviteView(View):
+    def get(self, request, *args, **kwargs):
+        referral_code = kwargs.get('referral_code')
+
+        print('referral_code', referral_code)
+
+        verified = UserInvite.exist(referral_code)
+
+        if not verified:
+            return HttpResponseNotFound()
+
+        return HttpResponseRedirect('/accounts/signup')
+

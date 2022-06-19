@@ -3,10 +3,12 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+from blog.views import VerifyInviteView
 from mundang.views import IndexTemplateView
 
 urlpatterns = [
     path('', IndexTemplateView.as_view(), name='home'),
+    path('invite/<str:referral_code>/verify', VerifyInviteView.as_view()),
     path('blog/', include('blog.urls', namespace='blog')),
     path('api/quotes/', include('quotes.api.urls', namespace='api_quotes')),
     path('accounts/', include('allauth.urls')),

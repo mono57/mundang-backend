@@ -1,8 +1,10 @@
-import datetime, uuid
-from django.conf import settings
+import datetime, uuid, os
+import re
 
+from django.conf import settings
 from django.db import models
 from django.db.models import Q
+from django.http import HttpRequest, HttpResponseNotFound
 from django.utils.translation import gettext_lazy as _
 from django.utils.text import slugify
 from django.utils import timezone
@@ -60,8 +62,8 @@ class PostType(SlugifyModelMixin):
 # class PostManager(models.Manager):
 #     def get_posts_by_catefory(self)
 
-def post_images(ins, filename):
-    return f'images/posts/{ins.pk}_{filename}'
+def post_images(instance, filename):
+    return f'images/posts/{instance.pk}_{filename}'
 
 
 class PostQuerySet(models.QuerySet):
@@ -134,23 +136,65 @@ class Post(SlugifyModelMixin):
             Q(tags__in=tags_ids) & ~Q(id=self.pk)
         )
 
-class UserInviteManager(models.Manager):
-    def send_invite_link(self, recipient_list):
-        pass
-
 class UserInvite(TimestampModel):
-    email = models.EmailField(_('Addresse email'), unique=True)
-    register_link_openned = models.BooleanField(_('Lien ouvert'), default=False)
-    referer_code = models.UUIDField(default=str(uuid.uuid4()), blank=True)
+    full_name = models.CharField(_('Nom complet'), max_length=100)
+    email = models.EmailField(_('Adresse email'), unique=True)
+    verified = models.BooleanField(_('Vérifié'), default=False)
+    referral_code = models.UUIDField(default=str(uuid.uuid4()), blank=True)
     invite_date = models.DateTimeField(null=True, blank=True)
+    verified_date = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
         return self.email
 
+    def generate_invite_url(self, request: HttpRequest):
+        # https://www.namundang.org/invite/<str:referral_code>/verify
+        protocol = 'https' if request.is_secure() else 'http'
+        domain = request.META.get('HTTP_HOST', settings.SITE_URL)
+        return f"{protocol}://{domain}/invite/{self.referral_code}/verify"
+
+    def send_invite_mail(self, request: HttpRequest):
+        from django.core.mail import EmailMessage
+        msg = EmailMessage(
+            from_email=os.environ.get('DEFAULT_FROM_EMAIL'),
+            to=[self.email],
+        )
+
+        msg.template_id = os.environ.get('INVITE_MAIL_TEMPLATE_ID')
+
+        dynamic_template_data = {
+            "invite_confirm_url": self.generate_invite_url(request),
+            "username": self.full_name
+        }
+        print('dynamic_template_data', dynamic_template_data)
+        msg.dynamic_template_data = dynamic_template_data
+
+        msg.send(fail_silently=False)
+
+        self.invite_date = datetime.datetime.now(timezone.utc)
+        self.save()
+
     @classmethod
-    def send_mass_mail(cls, recipient):
-        pass
+    def exist(cls, referral_code):
+        link = cls.objects.filter(
+            Q(referral_code=referral_code)
+        ).first()
+
+        if link is None or link.key_expired():
+            return False
+
+        link.verify()
+        return True
+
+    def verify(self):
+        self.verified = True
+        self.verified_date = datetime.datetime.now(timezone.utc)
+        self.save()
 
     def key_expired(self):
-        date_treesholt = self.invite_date + datetime.timedelta(days=settings.EMAIL_INVITE_EXPIRE_DAYS)
-        return datetime.datetime.now(timezone.utc) > date_treesholt
+        if self.verified:
+            return True
+
+        date_threshold = self.invite_date + \
+            datetime.timedelta(days=settings.EMAIL_INVITE_EXPIRE_DAYS)
+        return datetime.datetime.now(timezone.utc) > date_threshold
