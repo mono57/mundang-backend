@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from blog.models import Post, PostCategory, PostType
+from blog.models import Post, PostCategory, PostType, UserInvite
 # Register your models here.
 
 class PostModelAdmin(admin.ModelAdmin):
@@ -19,3 +19,13 @@ class PostTypeModelAdmin(admin.ModelAdmin):
     list_display = ['name', 'icon']
 
 admin.site.register(PostType, PostTypeModelAdmin)
+
+
+class UserInviteModelAdmin(admin.ModelAdmin):
+    list_display = ['email', 'register_link_openned']
+    actions = []
+
+    def send_invite_link(self, queryset):
+        pass
+
+admin.site.register(UserInvite, UserInviteModelAdmin)

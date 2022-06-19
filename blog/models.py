@@ -1,4 +1,5 @@
-import datetime
+import datetime, uuid
+from django.conf import settings
 
 from django.db import models
 from django.db.models import Q
@@ -132,3 +133,24 @@ class Post(SlugifyModelMixin):
         return self.__class__.objects.filter(
             Q(tags__in=tags_ids) & ~Q(id=self.pk)
         )
+
+class UserInviteManager(models.Manager):
+    def send_invite_link(self, recipient_list):
+        pass
+
+class UserInvite(TimestampModel):
+    email = models.EmailField(_('Addresse email'), unique=True)
+    register_link_openned = models.BooleanField(_('Lien ouvert'), default=False)
+    referer_code = models.UUIDField(default=str(uuid.uuid4()), blank=True)
+    invite_date = models.DateTimeField(null=True, blank=True)
+
+    def __str__(self):
+        return self.email
+
+    @classmethod
+    def send_mass_mail(cls, recipient):
+        pass
+
+    def key_expired(self):
+        date_treesholt = self.invite_date + datetime.timedelta(days=settings.EMAIL_INVITE_EXPIRE_DAYS)
+        return datetime.datetime.now(timezone.utc) > date_treesholt
