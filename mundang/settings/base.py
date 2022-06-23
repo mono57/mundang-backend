@@ -15,13 +15,12 @@ DEFAULT_FROM_EMAIL = "noreply@namundang.org"
 
 SITE_URL = 'namundang.org'
 
-# AUTH_USER_MODEL = "accounts.User"
+AUTH_USER_MODEL = 'accounts.User'
 
 # Application definition
 PROJECT_APPS = [
     'quotes.apps.QuotesConfig',
     'blog.apps.BlogConfig',
-    'accounts.apps.AccountsConfig'
 ]
 
 THIRP_PARTIES = [
@@ -40,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'django.contrib.sites',
+    'accounts.apps.AccountsConfig'
+
 
 ] + THIRP_PARTIES + PROJECT_APPS
 
