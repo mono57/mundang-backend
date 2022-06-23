@@ -140,7 +140,7 @@ class UserInvite(TimestampModel):
     last_name = models.CharField(_('Nom'), max_length=100)
     email = models.EmailField(_('Adresse email'), unique=True)
     verified = models.BooleanField(_('Vérifié'), default=False)
-    referral_code = models.UUIDField(default=str(uuid.uuid4()), blank=True)
+    referral_code = models.UUIDField(blank=True, editable=False)
     invite_date = models.DateTimeField(null=True, blank=True)
     verified_date = models.DateTimeField(null=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='invites', blank=True)
@@ -149,6 +149,9 @@ class UserInvite(TimestampModel):
         return self.email
 
     def save(self, *args, **kwargs):
+        if not self.id:
+            self.referral_code = str(uuid.uuid4())
+
         user = User.objects.create(
             username=self.first_name,
             email=self.email,
