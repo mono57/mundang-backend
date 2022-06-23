@@ -7,6 +7,7 @@ from django.utils import timezone
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.utils.translation import gettext_lazy as _
 from django.conf import settings
+from django.urls import reverse
 
 
 from mundang.utils import TimestampModel
@@ -68,22 +69,22 @@ class UserInvite(TimestampModel):
     def save(self, *args, **kwargs):
         if not self.id:
             self.referral_code = str(uuid.uuid4())
+            user = User.objects.create(
+                email=self.email,
+                first_name=self.first_name,
+                last_name=self.last_name,
+                is_active=False
+            )
+            self.user = user
 
-        user = User.objects.create(
-            username=self.first_name,
-            email=self.email,
-            first_name=self.first_name,
-            last_name=self.last_name,
-            is_active=False
-        )
-        self.user = user
         super().save(*args, **kwargs)
 
     def generate_invite_url(self, request: HttpRequest):
         # https://www.namundang.org/invite/<str:referral_code>/verify
         protocol = 'https' if request.is_secure() else 'http'
         domain = request.META.get('HTTP_HOST', settings.SITE_URL)
-        return f"{protocol}://{domain}/invite/{self.referral_code}/verify"
+        url = reverse("accounts:user_invite", kwargs={'referral_code': self.referral_code})
+        return f"{protocol}://{domain}{url}"
 
     def send_invite_mail(self, request: HttpRequest):
         from django.core.mail import EmailMessage

@@ -6,5 +6,5 @@ app_name = 'accounts'
 
 urlpatterns = [
     path('signup/', SignupView.as_view(), name='signup'),
-    path('invite/<str:referral_code>/verify', VerifyInviteView.as_view()),
+    path('invite/<str:referral_code>/verify', VerifyInviteView.as_view(), name='user_invite'),
 ]
