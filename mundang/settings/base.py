@@ -15,16 +15,20 @@ DEFAULT_FROM_EMAIL = "noreply@namundang.org"
 
 SITE_URL = 'namundang.org'
 
+# AUTH_USER_MODEL = "accounts.User"
+
 # Application definition
 PROJECT_APPS = [
     'quotes.apps.QuotesConfig',
     'blog.apps.BlogConfig',
+    'accounts.apps.AccountsConfig'
 ]
 
 THIRP_PARTIES = [
     'taggit',
     'allauth',
     'allauth.account',
+    'crispy_forms',
 ]
 
 INSTALLED_APPS = [
@@ -125,3 +129,10 @@ SITE_ID = 1
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+# AUTHENTICATION_BACKENDS = [
+#     # `allauth` specific authentication methods, such as login by e-mail
+#     'allauth.account.auth_backends.AuthenticationBackend',
+# ]
+ACCOUNT_USERNAME_REQUIRED = False
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

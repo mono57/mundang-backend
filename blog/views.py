@@ -39,8 +39,6 @@ class VerifyInviteView(View):
     def get(self, request, *args, **kwargs):
         referral_code = kwargs.get('referral_code')
 
-        print('referral_code', referral_code)
-
         verified = UserInvite.exist(referral_code)
 
         if not verified:

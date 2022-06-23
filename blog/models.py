@@ -1,14 +1,14 @@
 import datetime, uuid, os
-import re
 
 from django.conf import settings
 from django.db import models
 from django.db.models import Q
-from django.http import HttpRequest, HttpResponseNotFound
+from django.http import HttpRequest
 from django.utils.translation import gettext_lazy as _
 from django.utils.text import slugify
 from django.utils import timezone
 from django.urls import reverse
+from django.contrib.auth import get_user_model
 from django.contrib.humanize.templatetags.humanize import naturalday
 
 from taggit.managers import TaggableManager
@@ -16,21 +16,19 @@ from taggit.managers import TaggableManager
 from mundang.utils import TimestampModel
 from blog.validators import hex_color_code_validator
 
+User = get_user_model()
+
 class SlugifyModelMixin(TimestampModel):
     slug = models.CharField(max_length=255, blank=True)
+    lookup_field = 'name'
 
     class Meta:
         abstract = True
 
     def save(self, *args, **kwargs):
-        populate_field_value = getattr(self, 'name', None)
-        if not populate_field_value:
-            populate_field_value = getattr(self, 'title')
-
-        self.slug = slugify(populate_field_value)
+        populated_field_value = getattr(self, self.lookup_field, None)
+        self.slug = slugify(populated_field_value)
         super().save(*args, **kwargs)
-
-
 
 class PostCategory(SlugifyModelMixin):
     name = models.CharField(_("Nom"), max_length=100, unique=True)
@@ -85,6 +83,7 @@ class PostManager(models.Manager):
         return lastest_posts
 
 class Post(SlugifyModelMixin):
+    lookup_field = 'title'
     title = models.CharField(_("Titre"), max_length=255, unique=True)
     type = models.ForeignKey(PostType, on_delete=models.CASCADE)
     category = models.ForeignKey(
@@ -137,15 +136,28 @@ class Post(SlugifyModelMixin):
         )
 
 class UserInvite(TimestampModel):
-    full_name = models.CharField(_('Nom complet'), max_length=100)
+    first_name = models.CharField(_('Prenom'), max_length=100)
+    last_name = models.CharField(_('Nom'), max_length=100)
     email = models.EmailField(_('Adresse email'), unique=True)
     verified = models.BooleanField(_('Vérifié'), default=False)
     referral_code = models.UUIDField(default=str(uuid.uuid4()), blank=True)
     invite_date = models.DateTimeField(null=True, blank=True)
     verified_date = models.DateTimeField(null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='invites', blank=True)
 
     def __str__(self):
         return self.email
+
+    def save(self, *args, **kwargs):
+        user = User.objects.create(
+            username=self.first_name,
+            email=self.email,
+            first_name=self.first_name,
+            last_name=self.last_name,
+            is_active=False
+        )
+        self.user = user
+        super().save(*args, **kwargs)
 
     def generate_invite_url(self, request: HttpRequest):
         # https://www.namundang.org/invite/<str:referral_code>/verify
@@ -164,7 +176,7 @@ class UserInvite(TimestampModel):
 
         dynamic_template_data = {
             "invite_confirm_url": self.generate_invite_url(request),
-            "username": self.full_name
+            "username": self.first_name
         }
         print('dynamic_template_data', dynamic_template_data)
         msg.dynamic_template_data = dynamic_template_data
