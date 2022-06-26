@@ -3,18 +3,22 @@ from django.http import HttpResponseNotFound, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import FormView, View, TemplateView
+from django.contrib.auth.views import LoginView as BaseLoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied, ObjectDoesNotExist, ValidationError
 from accounts.admin import User
+
 # from allauth.account.forms import SignupForm
+from allauth.account.views import RedirectAuthenticatedUserMixin
 
 from accounts.forms import SignupForm
 from accounts.models import UserInvite
 from mundang.utils import reverse_query_string
 
-class SignupView(FormView):
+class SignupView(RedirectAuthenticatedUserMixin, FormView):
     template_name = 'accounts/signup.html'
     form_class = SignupForm
+    redirect_field_name = "next"
     success_url = reverse_lazy('accounts:dashboard')
 
     def get_form_kwargs(self):
@@ -81,4 +85,7 @@ class VerifyInviteView(View):
 class DashboardTemplateView(LoginRequiredMixin, TemplateView):
     template_name: str = 'accounts/dashboard.html'
 
+
+class LoginView(RedirectAuthenticatedUserMixin, BaseLoginView):
+    template_name = 'accounts/login.html'
 
