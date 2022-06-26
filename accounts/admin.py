@@ -48,7 +48,7 @@ class UserAdmin(UserAdmin):
         "user_permissions",
     )
 class UserInviteModelAdmin(admin.ModelAdmin):
-    list_display = ['email', 'verified']
+    list_display = ['email', 'email_sent', 'verified']
     actions = ['send_invite_link']
 
     def send_invite_link(self, request, queryset):

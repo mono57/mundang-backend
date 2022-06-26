@@ -11,6 +11,7 @@
                 <h4>{% trans "Inscription" %}</h4>
             </div>
             <form method="post">
+                {% csrf_token %}
                 {% for field in form %}
                     <div class="form-group">
                         {{field|as_crispy_field}}

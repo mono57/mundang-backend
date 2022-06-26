@@ -21,12 +21,14 @@ AUTH_USER_MODEL = 'accounts.User'
 PROJECT_APPS = [
     'quotes.apps.QuotesConfig',
     'blog.apps.BlogConfig',
+    'accounts.apps.AccountsConfig'
+
 ]
 
 THIRP_PARTIES = [
     'taggit',
-    'allauth',
-    'allauth.account',
+    # 'allauth',
+    # 'allauth.account',
     'crispy_forms',
 ]
 
@@ -39,8 +41,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'django.contrib.sites',
-    'accounts.apps.AccountsConfig'
-
 
 ] + THIRP_PARTIES + PROJECT_APPS
 
@@ -127,13 +127,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Django Allauth Settings
 SITE_ID = 1
-ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+
 # AUTHENTICATION_BACKENDS = [
 #     # `allauth` specific authentication methods, such as login by e-mail
 #     'allauth.account.auth_backends.AuthenticationBackend',
 # ]
-ACCOUNT_USERNAME_REQUIRED = False
+# ACCOUNT_USERNAME_REQUIRED = False
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

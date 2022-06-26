@@ -79,6 +79,10 @@ class UserInvite(TimestampModel):
 
         super().save(*args, **kwargs)
 
+    @property
+    def email_sent(self):
+        return self.invite_date is not None
+
     def generate_invite_url(self, request: HttpRequest):
         # https://www.namundang.org/invite/<str:referral_code>/verify
         protocol = 'https' if request.is_secure() else 'http'
