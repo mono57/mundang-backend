@@ -4,34 +4,7 @@
 {% url 'blog' as blog_url %}
 
 <header class="header_wrap dark_skin fixed-top">
-	<div class="top-header bg_dark light_skin">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-7">
-                    <ul class="header_list text-center text-md-left">
-                    	<li><i class="far fa-clock"></i> <span id="current_time"></span></li>
-                        <li><a href="#">{% trans "Connexion" %}</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-5">
-                	<div class="d-flex align-items-center justify-content-center justify-content-md-end">
-                        <div class="lng_dropdown mr-2">
-                            <select name="countries" class="custome_select">
-                                <option value='en' data-title="English">English</option>
-                                <option value='fn' data-title="France">France</option>
-                            </select>
-                        </div>
-                        <ul class="social_icons social_white">
-                            <li><a href="#"><i class="ion-social-facebook"></i></a></li>
-                            <li><a href="#"><i class="ion-social-twitter"></i></a></li>
-                            <li><a href="#"><i class="ion-social-linkedin"></i></a></li>
-                            <li><a href="#"><i class="ion-social-youtube"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+	{% include "base/top_header.html" %}
 	<div class="container">
     	<nav class="navbar navbar-expand-lg">
             <a class="navbar-brand" href="index.html">
@@ -47,6 +20,18 @@
                     <li><a class="nav-link nav_item" href="">{% trans "Contribution" %}</a></li>
                     <li><a class="nav-link nav_item" href="">{% trans "A propos" %}</a></li>
                     <li><a class="nav-link nav_item" href="">{% trans "Contact" %}</a></li>
+                    {% if request.user.is_authenticated %}
+                    <li class="dropdown">
+                        <a data-toggle="dropdown" class="nav-link dropdown-toggle active" href="#">{{request.user.get_full_name}}</a>
+                        <div class="dropdown-menu">
+                            <ul>
+                                <li><a class="dropdown-item nav-link nav_item {% if request.path == bashboard_url %}active{% endif %}" href="#">{% trans "Tableau de bord" %}</a></li>
+                                <li><a class="dropdown-item nav-link nav_item" href="#">{% trans "Paramètres" %}</a></li>
+                                <li><a class="dropdown-item nav-link nav_item" href="#">{% trans "Déconnexion" %}</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    {% endif %}
                 </ul>
             </div>
 

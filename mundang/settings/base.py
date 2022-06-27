@@ -27,8 +27,8 @@ PROJECT_APPS = [
 
 THIRP_PARTIES = [
     'taggit',
-    # 'allauth',
-    # 'allauth.account',
+    'allauth',
+    'allauth.account',
     'crispy_forms',
 ]
 
@@ -128,10 +128,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Django Allauth Settings
 SITE_ID = 1
 
-# AUTHENTICATION_BACKENDS = [
-#     # `allauth` specific authentication methods, such as login by e-mail
-#     'allauth.account.auth_backends.AuthenticationBackend',
-# ]
-# ACCOUNT_USERNAME_REQUIRED = False
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+
+LOGIN_REDIRECT_URL = 'accounts:dashboard'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
