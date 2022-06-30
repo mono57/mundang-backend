@@ -14,6 +14,6 @@ def reverse_query_string(viewname, params):
     q = QueryDict('', mutable=True)
     q.update(params)
 
-    reverse_url = reverse(viewname) + q.urlencode()
+    reverse_url = f'{reverse(viewname)}?{q.urlencode()}'
 
     return reverse_url

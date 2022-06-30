@@ -61,7 +61,7 @@ class UserInvite(TimestampModel):
     referral_code = models.UUIDField(blank=True, editable=False)
     invite_date = models.DateTimeField(null=True, blank=True)
     verified_date = models.DateTimeField(null=True, blank=True)
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='invites', blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='invites', blank=True)
 
     def __str__(self):
         return self.email
@@ -120,7 +120,6 @@ class UserInvite(TimestampModel):
         if link is None or link.key_expired():
             return False
 
-        link.verify()
         return True
 
     def verify(self):
@@ -134,4 +133,5 @@ class UserInvite(TimestampModel):
 
         date_threshold = self.invite_date + \
             datetime.timedelta(days=settings.EMAIL_INVITE_EXPIRE_DAYS)
+
         return datetime.datetime.now(timezone.utc) > date_threshold
