@@ -16,7 +16,7 @@ DEFAULT_FROM_EMAIL = "noreply@namundang.org"
 SITE_URL = 'namundang.org'
 
 AUTH_USER_MODEL = 'accounts.User'
-
+LOGOUT_REDIRECT_URL = 'home'
 # Application definition
 PROJECT_APPS = [
     'quotes.apps.QuotesConfig',
@@ -135,6 +135,7 @@ AUTHENTICATION_BACKENDS = [
 ]
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True
+EMAIL_VERIFICATION = "none"
 
 LOGIN_REDIRECT_URL = 'accounts:dashboard'
 

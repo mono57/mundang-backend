@@ -7,9 +7,9 @@
                 <ul class="header_list text-center text-md-left">
                     <li><i class="far fa-clock"></i> <span id="current_time"></span></li>
                     {% if request.user.is_authenticated %}
-                    <li><a href="#">{% trans "Aller au site" %}<i class="ion-open-outline"></i></a></li>
+                    <li><a href="{% url 'home' %}">{% trans "Aller au site" %}<i class="ion-open-outline"></i></a></li>
                     {% else %}
-                    <li><a href="#">{% trans "Connexion" %}</a></li>
+                    <li><a href="{% url 'accounts:login' %}">{% trans "Connexion" %}</a></li>
 
                     {% endif %}
                 </ul>

@@ -1,7 +1,8 @@
 {% load i18n %}
 
 {% url 'home' as home_url %}
-{% url 'blog' as blog_url %}
+{% url 'blog:post_list' as blog_url %}
+{% url 'accounts:dashboard' as bashboard_url %}
 
 <header class="header_wrap dark_skin fixed-top">
 	{% include "base/top_header.html" %}
@@ -22,12 +23,12 @@
                     <li><a class="nav-link nav_item" href="">{% trans "Contact" %}</a></li>
                     {% if request.user.is_authenticated %}
                     <li class="dropdown">
-                        <a data-toggle="dropdown" class="nav-link dropdown-toggle active" href="#">{{request.user.get_full_name}}</a>
+                        <a data-toggle="dropdown" class="nav-link dropdown-toggle" href="#"><i class="fas fa-user-tie"></i> &ensp; {{request.user.get_full_name}}</a>
                         <div class="dropdown-menu">
                             <ul>
-                                <li><a class="dropdown-item nav-link nav_item {% if request.path == bashboard_url %}active{% endif %}" href="#">{% trans "Tableau de bord" %}</a></li>
+                                <li><a class="dropdown-item nav-link nav_item {% if request.path == bashboard_url %}active{% endif %}" href="{{bashboard_url}}">{% trans "Tableau de bord" %}</a></li>
                                 <li><a class="dropdown-item nav-link nav_item" href="#">{% trans "Paramètres" %}</a></li>
-                                <li><a class="dropdown-item nav-link nav_item" href="#">{% trans "Déconnexion" %}</a></li>
+                                <li><a class="dropdown-item nav-link nav_item" href="{% url 'accounts:logout' %}">{% trans "Déconnexion" %}</a></li>
                             </ul>
                         </div>
                     </li>
