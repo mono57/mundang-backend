@@ -5,11 +5,16 @@
 
 {% block content %}
 <div class="row no-gutters">
-    <div class="col-6">
+    <div class="col-6 ml-auto">
         <div class="padding_eight_all">
             <div class="heading_s1">
                 <h4>{% trans "Inscription" %}</h4>
             </div>
+            {% if form.errors %}
+            <div class="alert alert-danger">
+                {% trans "Addresse email ou mot de passe invalide" %}
+            </div>
+            {% endif %}
             <form method="post">
                 {% csrf_token %}
                 {% for field in form %}
