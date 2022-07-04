@@ -96,6 +96,7 @@ class Post(SlugifyModelMixin):
     published_on = models.DateTimeField(blank=True, null=True)
     published = models.BooleanField(_('Publié'), default=True)
     visibled = models.BooleanField(_("Visible"), default=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts')
     tags = TaggableManager()
 
     objects: PostManager = PostManager()
