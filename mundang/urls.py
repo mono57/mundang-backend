@@ -9,6 +9,7 @@ urlpatterns = [
     path('', IndexTemplateView.as_view(), name='home'),
     path('blog/', include('blog.urls', namespace='blog')),
     path('api/quotes/', include('quotes.api.urls', namespace='api_quotes')),
+    path('dashboard/', include('dashboard.urls', namespace='dashboard')),
     # path('accounts/', include('allauth.urls')),
     path('accounts/', include('accounts.urls', namespace='accounts')),
     path('admin/', admin.site.urls),

@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% include 'base/css.html' %}
+    {% block stylesheets %}{% endblock stylesheets %}
+    {% block styles %}{% endblock styles %}
 
     <title>
         {% block title %}
@@ -23,5 +25,13 @@
 
     {% include 'base/footer.html' %}
     {% include 'base/js.html' %}
+
+    {% block javacripts %}{% endblock javacripts %}
+    <script>
+        $(document).ready(function(){
+            {% block scripts %}{% endblock scripts %}
+        })
+    </script>
+
 </body>
 </html>

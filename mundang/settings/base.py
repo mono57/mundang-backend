@@ -21,8 +21,8 @@ LOGOUT_REDIRECT_URL = 'home'
 PROJECT_APPS = [
     'quotes.apps.QuotesConfig',
     'blog.apps.BlogConfig',
-    'accounts.apps.AccountsConfig'
-
+    'accounts.apps.AccountsConfig',
+    'dashboard.apps.DashboardConfig',
 ]
 
 THIRP_PARTIES = [
@@ -137,6 +137,5 @@ ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True
 EMAIL_VERIFICATION = "none"
 
-LOGIN_REDIRECT_URL = 'accounts:dashboard'
-
+LOGIN_REDIRECT_URL = 'dashboard:home'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
