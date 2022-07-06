@@ -30,6 +30,8 @@ THIRP_PARTIES = [
     'allauth',
     'allauth.account',
     'crispy_forms',
+    'ckeditor',
+    'ckeditor_uploader'
 ]
 
 INSTALLED_APPS = [
@@ -139,3 +141,6 @@ EMAIL_VERIFICATION = "none"
 
 LOGIN_REDIRECT_URL = 'dashboard:home'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+# Django CKEDITOR configuration
+CKEDITOR_UPLOAD_PATH = "uploads/"

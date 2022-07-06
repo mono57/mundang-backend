@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+
+{% block title %}
+{% trans "Ajouter un article" %}
+{% endblock title %}
+
+{% block content %}
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="col-12 mb-3">
+                    <h4>{% trans "Ajouter un article" %}</h4>
+                </div>
+
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% for field in form %}
+
+                    <div class="{% if field.name == 'content' %} col-12 {% else %} col-8 {% endif %}">
+                        {{field|as_crispy_field}}
+                    </div>
+
+                    {% endfor %}
+                    <div class="col-8 pt-4">
+                        <button type="submit" class="btn btn-primary btn-sm">Enregistrer</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

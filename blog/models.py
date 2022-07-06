@@ -12,6 +12,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.humanize.templatetags.humanize import naturalday
 
 from taggit.managers import TaggableManager
+from ckeditor.fields import RichTextField
 
 from mundang.utils import TimestampModel
 from blog.validators import hex_color_code_validator
@@ -91,8 +92,8 @@ class Post(SlugifyModelMixin):
         on_delete=models.CASCADE,
         related_name='posts')
     cover_image = models.ImageField(_("Image de couverture"), upload_to=post_images)
-    summary = models.CharField(_("Resumé"), max_length=120)
-    content = models.TextField(_("Contenu"))
+    summary = models.TextField(_("Resumé"), max_length=120)
+    content = RichTextField(_('Contenu'))
     published_on = models.DateTimeField(blank=True, null=True)
     published = models.BooleanField(_('Publié'), default=True)
     visibled = models.BooleanField(_("Visible"), default=True)

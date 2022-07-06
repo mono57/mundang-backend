@@ -1,8 +1,11 @@
 from typing import Any, Dict, Type
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView, View
+from django.views.generic import ListView, DetailView, CreateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from blog.models import Post, PostCategory
+from blog.forms import PostModelForm
+
 
 class PostListView(ListView):
     paginate_by: int = 10
@@ -33,3 +36,5 @@ class PostDetailView(DetailView):
         ctx['lastest_posts'] = Post.objects.get_lastest_posts().exclude(id=object.pk).take(3)
         return ctx
 
+class PostCreateView(LoginRequiredMixin, CreateView):
+    form_class = PostModelForm
