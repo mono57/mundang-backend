@@ -18,7 +18,7 @@
                     <li><a class="nav-link nav_item {% if request.path == home_url %}active{% endif %}" href="{{home_url}}">{% trans "Acceuil" %}</a></li>
                     <li><a class="nav-link nav_item {% if request.path == blog_url %}active{% endif %}" href="{{blog_url}}">{% trans "Blog" %}</a></li>
                     <li><a class="nav-link nav_item" href="">{% trans "Dictionnaire" %}</a></li>
-                    <li><a class="nav-link nav_item" href="">{% trans "Contribution" %}</a></li>
+                    <li><a class="nav-link nav_item" href="{% url 'contribute' %}">{% trans "Contribution" %}</a></li>
                     <li><a class="nav-link nav_item" href="">{% trans "A propos" %}</a></li>
                     <li><a class="nav-link nav_item" href="">{% trans "Contact" %}</a></li>
                     {% if request.user.is_authenticated %}

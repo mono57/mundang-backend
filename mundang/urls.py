@@ -3,10 +3,11 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-from mundang.views import IndexTemplateView
+from mundang.views import IndexTemplateView, CountributeTemplateView
 
 urlpatterns = [
     path('', IndexTemplateView.as_view(), name='home'),
+    path('contribute/', CountributeTemplateView.as_view(), name='contribute'),
     path('blog/', include('blog.urls', namespace='blog')),
     path('api/quotes/', include('quotes.api.urls', namespace='api_quotes')),
     path('dashboard/', include('dashboard.urls', namespace='dashboard')),
