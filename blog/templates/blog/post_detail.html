@@ -10,7 +10,7 @@
 {% endblock title %}
 
 {% block breadcrumb %}
-<li class="breadcrumb-item"><a href="{{post_list_url}}">{% trans "Articles" %}</a></li>
+<li class="breadcrumb-item"><a href="{% url 'blog:post_list' %}">{% trans "Articles" %}</a></li>
 <li class="breadcrumb-item active">{{post.title}}</li>
 {% endblock breadcrumb %}
 
@@ -96,69 +96,7 @@
 
             </div>
             <div class="col-lg-4">
-                <div class="sidebar mt-4 pt-2 mt-lg-0 pt-lg-0">
-
-                    <div class="widget">
-                        <h5 class="widget_title">Categories</h5>
-                        <ul class="widget_categories">
-                            {% for category in post_categories %}
-                            {% include 'blog/includes/category_item_list.html' with category=category %}
-                            {% endfor %}
-                        </ul>
-                    </div>
-                    <div class="widget">
-                        <h5 class="widget_title">Subscribe Newsletter</h5>
-                        <p>Contrary to popular belief of lorem Ipsm Latin from consectetur industry blandit massa enim
-                            varius nunc.</p>
-                        <div class="newsletter_form">
-                            <form>
-                                <input type="text" required="" class="form-control form-control-sm rounded-input"
-                                    placeholder="Your email address..">
-                                <button type="submit" title="Subscribe" class="btn btn-default btn-radius btn-sm"
-                                    name="submit" value="Submit">subscribe</button>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="widget">
-                        <h5 class="widget_title">Social Feed</h5>
-                        <ul class="widget_social social_icons rounded_social">
-                            <li><a href="#" class="sc_facebook"><i class="ion-social-facebook"></i></a></li>
-                            <li><a href="#" class="sc_twitter"><i class="ion-social-twitter"></i></a></li>
-                            <li><a href="#" class="sc_gplus"><i class="ion-social-googleplus"></i></a></li>
-                            <li><a href="#" class="sc_youtube"><i class="ion-social-youtube-outline"></i></a></li>
-                            <li><a href="#" class="sc_instagram"><i class="ion-social-instagram-outline"></i></a></li>
-                            <li><a href="#" class="sc_pinterest"><i class="ion-social-pinterest-outline"></i></a></li>
-                        </ul>
-                    </div>
-                    <div class="widget">
-                        <h5 class="widget_title">{% trans "Articles recents" %}</h5>
-                        <ul class="recent_post">
-                            {% for lastest_post in lastest_posts %}
-                            <li>
-                                <div class="post_footer">
-                                    <div class="post_img">
-                                        <a href="{{lastest_post.get_absolute_url}}"><img class="rounded-circle"
-                                                src="{{lastest_post.cover_image.url}}" alt="{{lastest_post.title}}"></a>
-                                    </div>
-                                    <div class="post_content">
-                                        <h6><a href="{{lastest_post.get_absolute_url}}">{{lastest_post.title}}</a></h6>
-                                        <p class="small m-0">{{lastest_post.natural_published_on}}</p>
-                                    </div>
-                                </div>
-                            </li>
-                            {% endfor %}
-
-
-                        </ul>
-                    </div>
-                    <div class="widget">
-                        <div class="text-center">
-                            <div class="ads_banner">
-                                <a href="#"><img src="assets/images/ads336X280.jpg" alt=""></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                {% include 'blog/includes/sidebar.html' %}
             </div>
         </div>
     </div>

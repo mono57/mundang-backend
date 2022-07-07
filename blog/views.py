@@ -20,6 +20,7 @@ class PostListView(ListView):
 
     def get_context_data(self, **kwargs: Any):
         ctx = super().get_context_data(**kwargs)
+        ctx['post_categories'] = PostCategory.objects.all()
         return ctx
 
 class PostDetailView(DetailView):
