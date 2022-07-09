@@ -3,6 +3,9 @@
 {% url 'home' as home_url %}
 {% url 'blog:post_list' as blog_url %}
 {% url 'dashboard:home' as bashboard_url %}
+{% url 'contribute' as contribute_url %}
+{% url 'about' as about_url %}
+{% url 'contact' as contact_url %}
 
 <header class="header_wrap dark_skin fixed-top">
 	{% include "base/top_header.html" %}
@@ -17,10 +20,10 @@
                 <ul class="navbar-nav">
                     <li><a class="nav-link nav_item {% if request.path == home_url %}active{% endif %}" href="{{home_url}}">{% trans "Acceuil" %}</a></li>
                     <li><a class="nav-link nav_item {% if request.path == blog_url %}active{% endif %}" href="{{blog_url}}">{% trans "Blog" %}</a></li>
-                    <li><a class="nav-link nav_item" href="">{% trans "Dictionnaire" %}</a></li>
-                    <li><a class="nav-link nav_item" href="{% url 'contribute' %}">{% trans "Contribution" %}</a></li>
-                    <li><a class="nav-link nav_item" href="">{% trans "A propos" %}</a></li>
-                    <li><a class="nav-link nav_item" href="">{% trans "Contact" %}</a></li>
+                    <li><a class="nav-link nav_item {% if request.path == dico_url %}active{% endif %}" href="">{% trans "Dictionnaire" %}</a></li>
+                    <li><a class="nav-link nav_item {% if request.path == contribute_url %}active{% endif %}" href="{{contribute_url}}">{% trans "Contribution" %}</a></li>
+                    <li><a class="nav-link nav_item {% if request.path == about_url %}active{% endif %}" href="{{about_url}}">{% trans "A propos" %}</a></li>
+                    <li><a class="nav-link nav_item {% if request.path == contact_url %}active{% endif %}" href="{{contact_url}}">{% trans "Contact" %}</a></li>
                     {% if request.user.is_authenticated %}
                     <li class="dropdown">
                         <a data-toggle="dropdown" class="nav-link dropdown-toggle" href="#"><i class="fas fa-user-tie"></i> &ensp; {{request.user.get_full_name}}</a>
