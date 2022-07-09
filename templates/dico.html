@@ -1,0 +1,16 @@
+{% extends 'base_site.html' %}
+
+{% load i18n %}
+
+{% block title %}
+{% trans "Dictionnaire" %}
+{% endblock title %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item">{% trans "Dictionnaire" %}</li>
+{% endblock breadcrumb %}
+
+{% block content %}
+{{ block.super }}
+
+{% endblock content %}

@@ -11,5 +11,5 @@ class CountributeTemplateView(TemplateView):
 class AboutTemplateView(TemplateView):
     template_name: str = 'about.html'
 
-class ContactTemplateView(TemplateView):
-    template_name: str = 'contact.html'
+class DicoTemplateView(TemplateView):
+    template_name: str = 'dico.html'

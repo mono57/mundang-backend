@@ -1,0 +1,100 @@
+{% extends 'base_site.html' %}
+
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+{% trans "Contact" %}
+{% endblock title %}
+
+{% block content %}
+{{ block.super }}
+
+<div class="section pb_70">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-6">
+                <div class="contact_wrap contact_style1">
+                    <div class="contact_icon">
+                        <i class="ti-location-pin"></i>
+                    </div>
+                    <div class="contact_text">
+                        <span>Address</span>
+                        <p>123 Street, Old Trafford, London, UK</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="contact_wrap contact_style1">
+                    <div class="contact_icon">
+                        <i class="ti-mobile"></i>
+                    </div>
+                    <div class="contact_text">
+                        <span>Phone</span>
+                        <p>+ 457 789 789 65</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="contact_wrap contact_style1">
+                    <div class="contact_icon">
+                        <i class="ti-email"></i>
+                    </div>
+                    <div class="contact_text">
+                        <span>Email Address</span>
+                        <a href="mailto:info@sitename.com">info@yourmail.com</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12">
+    {% for message in messages %}
+    <div id="" class="alert alert-success text-center">{{message}}</div>
+    {% endfor %}
+</div>
+
+<div class="section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-9">
+                <div class="heading_s1 text-center">
+                    <h2>Get In touch</h2>
+                </div>
+                <p class="text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit massa
+                    enim. Nullam id varius nunc id varius nunc.</p>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="field_form">
+                    <form method="post" name="enq" action="{% url 'contact:home' %}">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="form-group col-sm-12 col-md-6">
+                                {{form.full_name|as_crispy_field}}
+                            </div>
+                            <div class="form-group col-sm-12 col-md-6">
+                                {{form.email|as_crispy_field}}
+                            </div>
+
+                            <div class="form-group col-md-12">
+                                {{form.subject|as_crispy_field}}
+                            </div>
+                            <div class="form-group col-md-12">
+                                {{form.message|as_crispy_field}}
+                            </div>
+                            <div class="col-md-12 text-center">
+                                <button type="submit" title="Submit Your Message!" class="btn btn-default" name="submit" value="Submit">{% trans "Envoyer le message" %}</button>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

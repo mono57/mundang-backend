@@ -23,6 +23,7 @@ PROJECT_APPS = [
     'blog.apps.BlogConfig',
     'accounts.apps.AccountsConfig',
     'dashboard.apps.DashboardConfig',
+    'contact.apps.ContactConfig',
 ]
 
 THIRP_PARTIES = [
