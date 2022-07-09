@@ -10,6 +10,7 @@ from allauth.account.views import RedirectAuthenticatedUserMixin
 
 from accounts.forms import SignupForm
 from accounts.models import UserInvite
+from accounts.utils import perform_login
 from mundang.utils import reverse_query_string
 
 class SignupView(RedirectAuthenticatedUserMixin, FormView):
@@ -53,7 +54,7 @@ class SignupView(RedirectAuthenticatedUserMixin, FormView):
         invite = user.invites.first()
         invite.verify()
 
-        login(self.request, user)
+        perform_login(self.request, user)
 
         return super().form_valid(form)
 
