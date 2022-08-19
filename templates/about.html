@@ -6,12 +6,39 @@
 {% trans "A propos" %}
 {% endblock title %}
 
+{% block breadcrumb %}
+<li class="breadcrumb-item active">{% trans "A propos" %}</li>
+{% endblock breadcrumb %}
+
 {% block content %}
 {{ block.super }}
 
 <div class="section">
-    <div class="container">
-        <div class="row">
+	<div class="container">
+    	<div class="row">
+        	<div class="col-lg-8">
+                <h4>Hello, I'm Alia Brock</h4>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur malesuada malesuada metus ut placerat. Cras a porttitor quam, eget ornare sapien. In sit amet vulputate metus. Nullam eget rutrum nisl. Sed tincidunt lorem sed maximus interdum. Interdum malesuada fames ante ipsum primis in faucibus. Aenean scelerisque efficitur mauris nec tincidunt. cursus leo ultricies magna faucibus id.</p>
+                <blockquote class="blockquote_style1">
+                    <p>Integer is metus site turpis facilisis customers. elementum an mauris in venenatis consectetur east. Praesent condimentum bibendum Morbi sit amet commodo pellentesque at fringilla tincidunt risus.</p>
+                </blockquote>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur malesuada malesuada metus ut placerat. Cras a porttitor quam, eget ornare sapien. In sit amet vulputate metus. Nullam eget rutrum nisl. Sed tincidunt lorem sed maximus interdum. Interdum malesuada fames ante ipsum primis in faucibus. Aenean scelerisque efficitur mauris nec tincidunt. cursus leo ultricies magna faucibus id.</p>
+            </div>
+            <div class="col-lg-4">
+            	<div class="sidebar pt-3 pt-lg-0">
+                	<div class="widget">
+                    	<h5 class="widget_title">Social Connect</h5>
+                        <ul class="widget_social social_icons rounded_social">
+                            <li><a href="#" class="sc_facebook"><i class="ion-social-facebook"></i></a></li>
+                            <li><a href="#" class="sc_twitter"><i class="ion-social-twitter"></i></a></li>
+                            <li><a href="#" class="sc_gplus"><i class="ion-social-googleplus"></i></a></li>
+                            <li><a href="#" class="sc_youtube"><i class="ion-social-youtube-outline"></i></a></li>
+                            <li><a href="#" class="sc_instagram"><i class="ion-social-instagram-outline"></i></a></li>
+                            <li><a href="#" class="sc_pinterest"><i class="ion-social-pinterest-outline"></i></a></li>
+                    	</ul>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

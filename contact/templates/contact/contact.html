@@ -7,10 +7,14 @@
 {% trans "Contact" %}
 {% endblock title %}
 
+{% block breadcrumb %}
+<li class="breadcrumb-item active">{% trans "Contact" %}</li>
+{% endblock breadcrumb %}
+
 {% block content %}
 {{ block.super }}
 
-<div class="section pb_70">
+<div class="section">
     <div class="container">
         <div class="row">
             <div class="col-lg-4 col-md-6">
@@ -56,7 +60,7 @@
     {% endfor %}
 </div>
 
-<div class="section">
+<div class="section pt-0">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-6 col-md-9">

@@ -103,7 +103,7 @@ class UserInvite(TimestampModel):
             "invite_confirm_url": self.generate_invite_url(request),
             "username": self.first_name
         }
-        print('dynamic_template_data', dynamic_template_data)
+
         msg.dynamic_template_data = dynamic_template_data
 
         msg.send(fail_silently=False)

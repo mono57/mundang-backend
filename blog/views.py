@@ -8,7 +8,7 @@ from blog.forms import PostModelForm
 
 
 class PostListView(ListView):
-    paginate_by: int = 10
+    paginate_by: int = 6
     template_name: str = 'blog/post_list.html'
     model: Post = Post
     context_object_name: str = 'posts'
