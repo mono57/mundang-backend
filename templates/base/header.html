@@ -1,0 +1,45 @@
+{% load i18n %}
+
+{% url 'home' as home_url %}
+{% url 'blog:post_list' as blog_url %}
+{% url 'dashboard:home' as bashboard_url %}
+{% url 'contribute' as contribute_url %}
+{% url 'dico' as dico_url %}
+{% url 'about' as about_url %}
+{% url 'contact:home' as contact_url %}
+
+<header class="header_wrap dark_skin fixed-top">
+	{% include "base/top_header.html" %}
+	<div class="container">
+    	<nav class="navbar navbar-expand-lg">
+            <a class="navbar-brand" href="index.html">
+                <img class="logo_light" src="assets/images/logo_white.png" alt="logo" />
+                <img class="logo_dark" src="assets/images/logo_dark.png" alt="logo" />
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="ion-android-menu"></span> </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+                <ul class="navbar-nav">
+                    <li><a class="nav-link nav_item {% if request.path == home_url %}active{% endif %}" href="{{home_url}}">{% trans "Acceuil" %}</a></li>
+                    <li><a class="nav-link nav_item {% if request.path == blog_url %}active{% endif %}" href="{{blog_url}}">{% trans "Blog" %}</a></li>
+                    <li><a class="nav-link nav_item {% if request.path == dico_url %}active{% endif %}" href="{{dico_url}}">{% trans "Dictionnaire" %}</a></li>
+                    <li><a class="nav-link nav_item {% if request.path == contribute_url %}active{% endif %}" href="{{contribute_url}}">{% trans "Contribution" %}</a></li>
+                    <li><a class="nav-link nav_item {% if request.path == about_url %}active{% endif %}" href="{{about_url}}">{% trans "A propos" %}</a></li>
+                    <li><a class="nav-link nav_item {% if request.path == contact_url %}active{% endif %}" href="{{contact_url}}">{% trans "Contact" %}</a></li>
+                    {% if request.user.is_authenticated %}
+                    <li class="dropdown">
+                        <a data-toggle="dropdown" class="nav-link dropdown-toggle" href="#"><i class="fas fa-user-tie"></i> &ensp; {{request.user.get_full_name}}</a>
+                        <div class="dropdown-menu">
+                            <ul>
+                                <li><a class="dropdown-item nav-link nav_item {% if request.path == bashboard_url %}active{% endif %}" href="{{bashboard_url}}">{% trans "Tableau de bord" %}</a></li>
+                                <li><a class="dropdown-item nav-link nav_item" href="#">{% trans "Paramètres" %}</a></li>
+                                <li><a class="dropdown-item nav-link nav_item" href="{% url 'accounts:logout' %}">{% trans "Déconnexion" %}</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+
+		</nav>
+	</div>
+</header>

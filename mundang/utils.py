@@ -1,5 +1,6 @@
 from django.db import models
-
+from django.urls import reverse
+from django.http import QueryDict
 
 class TimestampModel(models.Model):
     class Meta:
@@ -7,3 +8,12 @@ class TimestampModel(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+
+def reverse_query_string(viewname, params):
+    q = QueryDict('', mutable=True)
+    q.update(params)
+
+    reverse_url = f'{reverse(viewname)}?{q.urlencode()}'
+
+    return reverse_url

@@ -1,0 +1,9 @@
+{% load i18n %}
+
+<li>
+    <a href="#">
+        <div class="cat_bg background_bg overlay_bg_50" data-img-src="assets/images/cat_img1.jpg">
+            <div class="post_category"><span class="cat_title">{{category.name}}</span><span class="cat_num">{{category.posts.count}} {% trans "Articles" %}</span></div>
+        </div>
+    </a>
+</li>

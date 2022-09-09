@@ -1,0 +1,22 @@
+{% load i18n %}
+
+<div class="blog_post">
+    <div class="blog_img">
+        <a href="{{post.get_absolute_url}}">
+            <img src="{{post.cover_image.url}}" alt="blog_img">
+        </a>
+    </div>
+    <div class="blog_content">
+        <div class="blog_text">
+            <div class="blog_tags">
+                <a class="blog_tags_cat" style="background-color: {{post.category.badge_color}}" href="#">{{post.category.name}}</a>
+            </div>
+            <h5 class="blog_heading"><a href="{{post.get_absolute_url}}">{{post.title}} </a></h5>
+            <ul class="blog_meta">
+                <li><a href="#"><i class="ti-calendar"></i> <span>{{post.natural_published_on}}</span></a></li>
+            </ul>
+            <p>{{post.summary}}</p>
+            <a href="{{post.get_absolute_url}}" class="btn btn-dark btn-sm">{% trans "Voir details" %}</a>
+        </div>
+    </div>
+</div>

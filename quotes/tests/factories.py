@@ -1,6 +1,3 @@
-
-from pyexpat import model
-from statistics import mode
 from factory.django import DjangoModelFactory
 from factory import Faker, SubFactory, post_generation
 from quotes.models import Quote, QuoteTag

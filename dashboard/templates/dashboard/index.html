@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+
+{% url 'dashboard:post_create' as post_create_url %}
+
+{% block title %}
+{% trans "Tableau de bord" %}
+{% endblock title %}
+
+{% block content %}
+
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                  <div class="card-header">
+
+                    <h4>Blog List </h4>
+                    <a href="{% url 'dashboard:post_create' %}" class="float-left">{% trans "Ajouter un article" %}</a>
+                  </div>
+                    <div class="card-body">
+                        <table class="table" id="posts_table">
+                            <thead>
+                              <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">{% trans "Titre" %}</th>
+                                <th scope="col"></th>
+                                <th scope="col">{% trans "Statut" %}</th>
+                                <th scope="col"></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {% for post in posts %}
+                              <tr>
+                                <th scope="row">{{forloop.counter}}</th>
+                                <td>{{post.title}}</td>
+                                <td> <span data-toggle="popover" title="{{post.summary}}"><i class="fas fa-info-circle"></i></span></td>
+                                <td>{{post.is_active}}</td>
+                                <td>
+                                  <a href="{% url 'dashboard:post_edit' pk=post.pk %}" class="text-primary"><i class="fas fa-edit"></i></a> &ensp;
+                                  <a href="" class="text-danger"><i class="fas fa-trash-alt"></i></a>
+                                </td>
+                              </tr>
+                              {% endfor %}
+
+
+                            </tbody>
+                          </table>
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+
+{% block javascripts %}
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
+{% endblock javascripts %}
+
+{% block scripts %}
+    $('#posts_table').DataTable();
+{% endblock scripts %}

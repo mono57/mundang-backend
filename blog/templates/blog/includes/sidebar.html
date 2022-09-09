@@ -1,0 +1,36 @@
+{% load i18n %}
+
+<div class="sidebar mt-4 pt-2 mt-lg-0 pt-lg-0">
+
+    <div class="widget">
+        <h5 class="widget_title">Categories</h5>
+        <ul class="widget_categories">
+            {% for category in post_categories %}
+            {% include 'blog/includes/category_item_list.html' with category=category %}
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="widget">
+        <h5 class="widget_title">{% trans "Articles recents" %}</h5>
+        <ul class="recent_post">
+            {% for lastest_post in lastest_posts %}
+            <li>
+                <div class="post_footer">
+                    <div class="post_img">
+                        <a href="{{lastest_post.get_absolute_url}}"><img class="rounded-circle"
+                                src="{{lastest_post.cover_image.url}}" alt="{{lastest_post.title}}"></a>
+                    </div>
+                    <div class="post_content">
+                        <h6><a href="{{lastest_post.get_absolute_url}}">{{lastest_post.title}}</a></h6>
+                        <p class="small m-0">{{lastest_post.natural_published_on}}</p>
+                    </div>
+                </div>
+            </li>
+            {% endfor %}
+
+
+        </ul>
+    </div>
+
+</div>
