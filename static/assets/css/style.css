@@ -1812,7 +1812,6 @@ header.light_skin.nav-fixed .social_icons li a:hover {
 	z-index: 9999;
 	top: 0;
 	transition: all 0.5s ease-in-out;
-	cursor: url("../images/close.png"), pointer;
 	left: 0;
 	bottom: 0;
 	right: 0;
@@ -3137,7 +3136,6 @@ footer .widget_title {
 	color: #FF324D;
 }
 .footer_bg {
-	background-image: url(../images/footer_shape.png);
 	background-repeat: no-repeat;
 	background-size: contain;
 	background-position: top center;
@@ -3149,7 +3147,6 @@ footer .widget_title {
 	box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 .pattern_bg {
-	background-image: url(../images/pattern_bg2.png);
 	background-position: top center;
 	background-repeat: no-repeat;
 	background-size: cover;
