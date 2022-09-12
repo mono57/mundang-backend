@@ -135,4 +135,4 @@ class Post(SlugifyModelMixin):
         tags_ids = self.tags.values_list('id', flat=True)
         return self.__class__.objects.filter(
             Q(tags__in=tags_ids) & ~Q(id=self.pk)
-        )
+        ).distinct('slug')
